@@ -29,6 +29,10 @@
 		
 		<!-- Thymeleaf -->
 		<thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+		
+		<!-- Bean Validation / Hibernate Validator -->
+		<!-- no curso usaram a versão 5.2.4 -->
+		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
 	</properties>
 
 	<dependencyManagement>
@@ -58,6 +62,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- Thymeleaf -->
 		<dependency>
 		    <groupId>org.thymeleaf</groupId>
 		    <artifactId>thymeleaf</artifactId>
@@ -68,6 +73,13 @@
 		    <groupId>org.thymeleaf</groupId>
 		    <artifactId>thymeleaf-spring4</artifactId>
 	    	<version>${thymeleaf.version}</version>
+		</dependency>
+		
+		<!-- Bean Validation / Hibernate Validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
 		</dependency>
 		
 	</dependencies>

@@ -19,8 +19,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.algaworks.brewer.controller.CervejasController;
 
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class})
-/*também pode ser assim
+@ComponentScan(basePackageClasses = { CervejasController.class })
+/* também pode ser assim
  * @ComponentScan("com.algaworks.brewer.controller")
  * tem a desvantagem de se renomear o pacote, não vai subir mais a aplicação.
  * já na abordagem utilizada, precisa de uma classe para que esta seja
