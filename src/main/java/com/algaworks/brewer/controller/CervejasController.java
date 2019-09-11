@@ -31,4 +31,5 @@ public class CervejasController {
 		/* no redirect colocamos o url e não o nome da view */
 		return "redirect:/cervejas/novo";
 	}
+	
 }

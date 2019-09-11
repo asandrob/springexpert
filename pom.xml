@@ -33,6 +33,10 @@
 		<!-- Bean Validation / Hibernate Validator -->
 		<!-- no curso usaram a versão 5.2.4 -->
 		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
+		
+		<!-- Thymeleaf layout dialect -->
+		<!-- no curso usaram a versão 2.0.0 -->
+		<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
 	</properties>
 
 	<dependencyManagement>
@@ -80,6 +84,13 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>${hibernate-validator.version}</version>
+		</dependency>
+		
+		<!-- Thymeleaf layout dialect -->
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
 		
 	</dependencies>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{leiaute/LeiautePadrao}">
+
+<head>
+	<title>Cadastro de cliente</title>
+</head>
+
+<body>
+<div layout:fragment="conteudo">
+	<section class="content-header">
+	<h1>
+		<span>Cadastro de cliente</span>
+	</h1>
+	<div class="breadcrumb">
+	<button type="button" class="btn btn-primary btn-xs">Default</button>
+	<a href="#" class="btn btn-primary btn-xs">Voltar</a>
+	</div>
+	</section>
+	
+	<section class="content">
+		<div class="box">
+			<div class="box-body">
+				<form class="form-vertical">
+					<div class="form-group">
+						<label for="nome">Nome</label>
+						<input id="nome" type="text" class="form-control" />
+					</div>
+					<div class="row">
+						<div class="col-sm-4 form-group">
+							<label for="tipoPessoa">Tipo pessoa</label>
+							<div class="radio" style="margin-top:5px">
+								<div class="radio-inline">
+									<input type="radio" name="tipoPessoa">
+									<label style="padding-left:0px">Física</label>
+								</div>
+								<div class="radio-inline">
+									<input type="radio" name="tipoPessoa">
+									<label style="padding-left:0px">Jurídica</label>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-8 form-group">
+							<label for="cpfCnpj">CPF/CNPJ</label>
+							<input id="cpfCnpj" type="text" class="form-control" />
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-sm-4 form-group">
+							<label for="telefone">Telefone</label>
+							<input id="telefone" type="text" class="form-control" />
+						</div>
+						<div class="col-sm-8 form-group">
+							<label for="email">Email</label>
+							<input id="email" type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 form-group">
+							<label for="logradouro">Logradouro</label>
+							<input id="logradouro" type="text" class="form-control" />
+						</div>
+						<div class="col-sm-4 form-group">
+							<label for="numero">Número</label>
+							<input id="numero" type="text" class="form-control" />
+						</div>
+						<div class="col-sm-4 form-group">
+							<label for="complemento">Complemento</label>
+							<input id="complemento" type="text" class="form-control" />
+						</div>
+						
+					</div>
+					
+					<div class="row">
+						<div class="col-sm-4 form-group">
+							<label for="cep">CEP</label>
+							<input id="cep" type="text" class="form-control" />
+						</div>
+						<div class="col-sm-4 form-group">
+							<label for="estado">Estado</label>
+							<select id="estado" class="form-control">
+								<option value="">Selecione um estado</option>
+							</select>
+						</div>
+						<div class="col-sm-4 form-group">
+							<label for="cidade">Cidade</label>
+							<select id="cidade" class="form-control">
+								<option value="">Selecione uma cidade</option>
+							</select>
+						</div>
+										
+					</div>
+					
+				</form>						
+			</div>
+			<div class="box-footer">
+				<button type="button" class="btn btn-primary">Salvar</button>
+				<a href="#" class="btn btn-primary btn-xs">Voltar</a>
+			</div>
+		</div>
+		
+	</section>
+<!-- 	<div class="clearfix"></div> -->
+</div>
+		
+</body>
+</html>
