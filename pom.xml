@@ -18,6 +18,10 @@
 		<java.version>1.8</java.version>
 		<!-- no curso usaram a versão 3.2 -->
 		<maven-compiler-pluging.version>3.8.1</maven-compiler-pluging.version>
+		<!-- no curso usaram a versão 4.0.2 -->
+		<flyway-maven-plugin.version>6.0.2</flyway-maven-plugin.version>
+		<!-- no curso usaram a versão 5.1.39 -->
+		<mysql-connector-java.version>5.1.46</mysql-connector-java.version>
 
 		<!-- Spring MVC -->
 		<!-- no curso usaram a versão 4.3.0 -->
@@ -37,7 +41,22 @@
 		<!-- Thymeleaf layout dialect -->
 		<!-- no curso usaram a versão 2.0.0 -->
 		<thymeleaf-layout-dialect.version>2.4.1</thymeleaf-layout-dialect.version>
+		
+		<!-- Logging -->
+		<!-- no curso usaram a versão 2.6 -->
+		<log4j.version>2.6.2</log4j.version>
+		<!-- no curso usaram a versão 1.7.21 -->
+		<jcl-over-slf4j.version>1.7.28</jcl-over-slf4j.version>
+		
+		<!-- Hibernate EntityManager -->
+		<!-- no curso usaram a versão 5.1.0.Final -->
+		<hibernate-entitymanager.version>5.2.18.Final</hibernate-entitymanager.version>
+		
+		<!-- Spring Data JPA -->
+		<!-- no curso usaram a versão 1.10.2.RELEASE -->
+		<spring-data-jpa.version>1.11.23.RELEASE</spring-data-jpa.version>		
 	</properties>
+	
 
 	<dependencyManagement>
 		<dependencies>
@@ -56,6 +75,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Servlet API -->
@@ -93,6 +118,56 @@
 			<version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
 		
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcl-over-slf4j.version}</version>
+		</dependency>
+		
+		<!-- Hibernate EntityManager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.javassist</groupId>
+					<artifactId>javassist</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<!-- MySQL Driver -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring-data-jpa.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -106,6 +181,16 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway-maven-plugin.version}</version>
+				<configuration>
+					<driver>com.mysql.jdbc.Driver</driver>
+				</configuration>
+			</plugin>
+			
+			
 		</plugins>
 	</build>
 
