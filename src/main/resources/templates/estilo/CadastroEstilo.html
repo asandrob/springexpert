@@ -26,10 +26,10 @@
 			<th:block th:include="~{fragmentos/MensagensErroValidacao :: mensagemErro}"></th:block>
 			<div class="box">
 				<div class="box-body">
-						<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
-							<label  class="control-label" for="nome">Nome</label>
-							<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
-						</div>
+					<div class="form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
+						<label  class="control-label" for="nome">Nome</label>
+						<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
+					</div>
 				</div>
 				<div class="box-footer">
 					<button type="submit" class="btn btn-primary">Salvar</button>

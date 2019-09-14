@@ -102,8 +102,6 @@
 									<input id="estoque" type="text" class="form-control js-plain"  th:field="*{quantidadeEstoque}"/>
 								</div>
 							</div>
-							
-							
 						</div>
 				</div>
 				<div class="box-footer">
@@ -119,6 +117,9 @@
 	</section>
 	<div class="clearfix"></div>
 </div>
-		
+<th:block layout:fragment="~{javascrit-extra}">
+	<script th:src="@{/js/estilo.cadastro-rapido.js}"></script>
+</th:block>		
+
 </body>
 </html>
