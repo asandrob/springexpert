@@ -51,7 +51,8 @@ public class Cerveja {
 	@DecimalMax(value = "100.0", message = "O valor do teor alcóolico deve ser menor ou igual a 100")
 	@Column(name = "teor_alcoolico")
 	private BigDecimal teorAlcoolico;
-
+	
+	@NotNull(message = "A comissão é obrigatória")
 	@DecimalMax(value = "100.0", message = "A comissão deve ser igual ou menor a 100")
 	private BigDecimal comissao;
 
@@ -72,6 +73,11 @@ public class Cerveja {
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
+	
+	private String foto;
+	
+	@Column(name = "content_type")
+	private String contentType;
 
 	public String getSku() {
 		return sku;
@@ -159,6 +165,22 @@ public class Cerveja {
 
 	public void setEstilo(Estilo estilo) {
 		this.estilo = estilo;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Override
