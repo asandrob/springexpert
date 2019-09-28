@@ -1,0 +1,10 @@
+table .header-fixed {
+	position: fixed;
+	top: 0px;
+	z-index: 1020;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.19);
+}
+
+thead {
+	background-color: #eaeaea;
+}

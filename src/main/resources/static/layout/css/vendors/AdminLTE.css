@@ -4855,6 +4855,7 @@ fieldset[disabled] .btn-yahoo.focus {
 .select2-container--default .select2-selection--multiple {
   border: 1px solid #d2d6de;
   border-radius: 0;
+  /*height: 34px;*/
 }
 .select2-container--default .select2-selection--multiple:focus {
   border-color: #3c8dbc;
@@ -4865,7 +4866,7 @@ fieldset[disabled] .btn-yahoo.focus {
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
   background-color: #3c8dbc;
   border-color: #367fa9;
-  padding: 1px 10px;
+  padding: 0px 10px;
   color: #fff;
 }
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {

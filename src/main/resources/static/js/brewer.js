@@ -20,4 +20,5 @@ Brewer.MaskMoney = (function(){
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.ativar();
+	$('.js-tooltip').tooltip();
 });

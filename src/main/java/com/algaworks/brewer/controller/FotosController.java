@@ -51,5 +51,15 @@ public class FotosController {
 				.headers(headers)
 				.body(fotoStorage.recuperarFotoTemporaria(nome));
 	}
+	
+	@GetMapping("/{nome:.*}")/*o ':.*' é uma REGEX para pegar a extensão do arquivo, ex: .png*/
+	public ResponseEntity<byte[]> recuperarFoto(@PathVariable String nome) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_PNG_VALUE);
+		return ResponseEntity.ok()
+				.headers(headers)
+				.body(fotoStorage.recuperarFoto(nome));
+	}
+
 
 }

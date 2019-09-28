@@ -58,7 +58,13 @@
 		
 		<!-- Jackson - JSON -->
 		<!-- no curso usaram a versão 2.7.5 -->
-		<jackson-core.version>2.9.9.3</jackson-core.version>		
+		<jackson-core.version>2.9.10</jackson-core.version>
+		
+		<!-- usado para transformar um string Base64 em um arquivo PNG -->
+		<commons-io.version>2.6</commons-io.version>
+		
+		<!-- thumbnailator - gerador de miniaturas das fotos -->
+		<thumbnailator.version>0.4.8</thumbnailator.version>		
 	</properties>
 
 	<dependencyManagement>
@@ -170,11 +176,22 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson-core.version}</version>
 		</dependency>
+		
+		<!-- usado para transformar um string Base64 em um arquivo PNG -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
+			<version>${commons-io.version}</version>
 		</dependency>
+		
+		<!-- thumbnailator - gerador de miniaturas das fotos -->
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>${thumbnailator.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
