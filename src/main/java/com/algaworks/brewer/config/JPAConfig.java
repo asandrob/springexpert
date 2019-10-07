@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -18,6 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.repository.Cervejas;
+import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @ComponentScan(basePackageClasses = Cervejas.class)
@@ -26,12 +26,20 @@ import com.algaworks.brewer.repository.Cervejas;
 public class JPAConfig {
 	
 	@Bean
-	public DataSource dataSource() {
-		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-		//procura no container
-		dataSourceLookup.setResourceRef(true);
-		return dataSourceLookup.getDataSource("jdbc/brewerDB");
-	}
+	public HikariDataSource dataSource() {
+	    HikariDataSource dataSource = new HikariDataSource();
+	    dataSource.setMaximumPoolSize(10);
+	    dataSource.setPoolName("Pool de conexões MYSQL");
+	    dataSource.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+	    dataSource.addDataSourceProperty("url", "jdbc:mysql://192.168.56.101:3306/brewer?useSSL=false");
+	    dataSource.addDataSourceProperty("user", "root");
+	    dataSource.addDataSourceProperty("password", "Gra.de34");
+	    dataSource.addDataSourceProperty("cachePrepStmts", true);
+	    dataSource.addDataSourceProperty("prepStmtCacheSize", 250);
+	    dataSource.addDataSourceProperty("prepStmtCacheSqlLimit", 2048);
+	    dataSource.addDataSourceProperty("useServerPrepStmts", true);
+	    return dataSource;
+	}	
 	
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {

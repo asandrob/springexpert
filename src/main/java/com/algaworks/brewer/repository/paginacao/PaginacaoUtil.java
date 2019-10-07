@@ -13,18 +13,22 @@ import org.springframework.stereotype.Component;
 public class PaginacaoUtil {
 	
 	public void preparaPaginacao(Pageable pageable,
-			CriteriaBuilder builder, CriteriaQuery<?> criteriaQuery,
-			Root<?> root, TypedQuery<?> query) {
-	int registrosPorPagina = pageable.getPageSize();
-	int paginaAtual = pageable.getPageNumber();
-	int primeiroRegistro= registrosPorPagina * paginaAtual;
-	Sort sort = pageable.getSort();
-	if (sort != null) {
-		Sort.Order order = sort.iterator().next();
-		String property = order.getProperty();
-		criteriaQuery.orderBy(order.isAscending() ? builder.asc(root.get(property)) : builder.desc(root.get(property)));
+			 TypedQuery<?> query) {
+		int registrosPorPagina = pageable.getPageSize();
+		int paginaAtual = pageable.getPageNumber();
+		int primeiroRegistro= registrosPorPagina * paginaAtual;
+		query.setFirstResult(primeiroRegistro);
+		query.setMaxResults(registrosPorPagina);
 	}
-	query.setFirstResult(primeiroRegistro);
-	query.setMaxResults(registrosPorPagina);
-}
+	
+	public void preparaOrdenacao(Pageable pageable, CriteriaQuery<?> criteriaQuery,
+			CriteriaBuilder builder, Root<?> root) {
+		Sort sort = pageable.getSort();
+		if (sort != null) {
+			Sort.Order order = sort.iterator().next();
+			String property = order.getProperty();
+			criteriaQuery.orderBy(order.isAscending() ? builder.asc(root.get(property)) : builder.desc(root.get(property)));
+		}
+		
+	}
 }

@@ -64,7 +64,13 @@
 		<commons-io.version>2.6</commons-io.version>
 		
 		<!-- thumbnailator - gerador de miniaturas das fotos -->
-		<thumbnailator.version>0.4.8</thumbnailator.version>		
+		<thumbnailator.version>0.4.8</thumbnailator.version>
+		
+		<!-- Thymeleaf Extras data attribute -->
+		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+		
+		<!-- Hikari Pool -->
+		<hikari.version>3.4.1</hikari.version>
 	</properties>
 
 	<dependencyManagement>
@@ -191,6 +197,21 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>${thumbnailator.version}</version>
 		</dependency>
+		
+		<!-- Thymeleaf Extras data attribute -->
+		<dependency>
+			<groupId>com.github.mxab.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-data-attribute</artifactId>
+			<version>${thymeleaf-extras-data-attribute.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${hikari.version}</version>
+		</dependency>
+		
 		
 	</dependencies>
 

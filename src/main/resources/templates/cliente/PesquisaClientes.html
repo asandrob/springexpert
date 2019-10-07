@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{leiaute/LeiautePadrao}"
+	xmlns:brewer="http://brewer.algaworks.com">
+<head>
+	<title>Pesquisa de clientes</title>
+	<link rel="stylesheet" th:href="@{/css/vendors/table-fixed-header.css}" />
+</head>
+<body>
+<div layout:fragment="conteudo">
+	<section class="content-header">
+	<h1>
+		<span>Pesquisa de clientes</span>
+	</h1>
+	<div class="breadcrumb">
+		<a th:href="@{/clientes/novo}" class="btn btn-primary btn-xs">
+			<i class="glyphicon glyphicon-plus"></i>
+			<span>Novo cliente</span>
+		</a>
+ 	</div>
+	</section>
+	<section class="content">
+		<form method="GET" th:object="${clienteFilter}" class="form-vertical">
+			<div class="box">
+				<div class="box-body">
+					<div class="row">
+						<div class="col-sm-9 form-group">
+							<label class="control-label" for="nome">Nome</label>
+							<input id="nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}"/>
+						</div>
+						<div class="col-sm-3 form-group">
+							<label class="control-label" for="cpfOuCnpj">CPF/CNPJ</label>
+							<input id="cpfOuCnpj" type="text" class="form-control" th:field="*{cpfOuCnpj}"/>
+						</div>
+						
+						
+					</div>
+				</div>
+					<div class="box-footer">
+					<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+				</div>
+				
+			</div>
+		</form>
+		<div class="box">
+			<div class="box-body">
+				<div class="table-responsive bw-tabela-simples">
+					<table class="table table-hover table-fixed-header">
+						<thead class="header">
+							<tr>
+								<th class="table-clientes-col-nome">
+									<brewer:order page="${pagina}" field="nome" text="Nome"/>
+								</th>
+								<th class="table-clientes-col-tipo-pessoa">
+									<brewer:order page="${pagina}" field="tipoPessoa" text="Tipo pessoa"/>
+								</th>
+								<th class="table-clientes-col-cpf-cnpj hidden-xs hidden-sm">CPF/CNPJ</th>
+								<th class="table-clientes-col-telefone hidden-xs hidden-sm">Telefone</th>
+								<th class="table-clientes-col-cidade-estado hidden-xs hidden-sm">Cidade/Estado</th>
+								<th class="table-clientes-col-acoes"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="cliente : ${pagina.conteudo}">
+								<td th:text="${cliente.nome}"></td>
+								<td class="text-center" th:text="${cliente.tipoPessoa.descricao}"></td>
+								<td class="text-right hidden-xs hidden-sm" th:text="${cliente.cpfOuCnpj}"></td>
+								<td class="text-right hidden-xs hidden-sm" th:text="${cliente.telefone}"></td>
+								<td class="text-center hidden-xs hidden-sm" th:text="${cliente.endereco.nomeCidadeSiglaEstado}"></td>
+								<td class="text-center">
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar"> 
+										<i class="glyphicon glyphicon-pencil"></i>
+									</a>
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Excluir">
+										<i class="glyphicon glyphicon-remove"></i>
+									</a>
+								</td>
+							</tr>
+							<tr th:if="${pagina.vazia}">
+								<td colspan="4">Nenhum cliente encontrado</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box-footer clearfix" th:if="${not pagina.vazia}">
+				<div class="col-sm-12 text-center">
+					<brewer:pagination page=${pagina}/>
+				</div>	
+            </div>
+		</div>		
+		
+		
+	</section>
+</div>
+<th:block layout:fragment="~{javascrit-extra}">
+	<script th:src="@{/js/vendors/table-fixed-header.js}"></script>
+	<script>
+		$('.table-fixed-header').fixedHeader();
+	</script>
+</th:block>		
+		
+</body>
+</html>	

@@ -41,10 +41,9 @@ public class CervejasImpl implements CervejasQueries {
 		cervejaRoot.fetch("estilo");
 		Predicate[] predicates = criarCriterios(filtro, builder, cervejaRoot);
 		criteriaQuery.where(predicates);
+		paginacaoUtil.preparaOrdenacao(pageable, criteriaQuery, builder, cervejaRoot);
 		TypedQuery<Cerveja> query = manager.createQuery(criteriaQuery);
-		
-		paginacaoUtil.preparaPaginacao(pageable, builder, criteriaQuery, cervejaRoot, query);
-		
+		paginacaoUtil.preparaPaginacao(pageable, query);
 		return new PageImpl<Cerveja>(query.getResultList(), pageable, total(filtro));		
 	}
 
