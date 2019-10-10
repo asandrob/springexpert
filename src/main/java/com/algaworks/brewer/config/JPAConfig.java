@@ -29,6 +29,7 @@ public class JPAConfig {
 	public HikariDataSource dataSource() {
 	    HikariDataSource dataSource = new HikariDataSource();
 	    dataSource.setMaximumPoolSize(10);
+	    dataSource.setConnectionTestQuery("SELECT 1 from dual");
 	    dataSource.setPoolName("Pool de conexões MYSQL");
 	    dataSource.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
 	    dataSource.addDataSourceProperty("url", "jdbc:mysql://192.168.56.101:3306/brewer?useSSL=false");

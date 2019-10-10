@@ -71,6 +71,12 @@
 		
 		<!-- Hikari Pool -->
 		<hikari.version>3.4.1</hikari.version>
+		
+		<!-- Cache - Guava -->
+		<guava.version>19.0</guava.version>
+		
+		<!-- Apache Bean Utils -->
+		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 	</properties>
 
 	<dependencyManagement>
@@ -96,6 +102,12 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		
+		<!-- Spring Context Support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
 		<!-- Servlet API -->
@@ -211,7 +223,18 @@
 			<artifactId>HikariCP</artifactId>
 			<version>${hikari.version}</version>
 		</dependency>
-		
+		<!-- Cache - Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<!-- Apache Bean Utils -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>${commons-beanutils.version}</version>
+		</dependency>		
 		
 	</dependencies>
 

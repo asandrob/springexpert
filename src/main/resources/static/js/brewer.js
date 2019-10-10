@@ -39,10 +39,33 @@ Brewer.MaskPhoneNumber = (function(){
 	
 }());
 
+Brewer.MaskDate = (function() {
+
+	function MaskDate() {
+		this.inputDate = $('.js-date');
+	}
+
+	MaskDate.prototype.ativar = function() {
+		this.inputDate.mask('00/00/0000');
+		this.inputDate.datepicker({
+			orientation: 'botton',
+			language: 'pt-BR',
+			todayHighlight: true,
+			autoclose: true,
+		});
+	}
+
+	return MaskDate;
+
+}());
+
+
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.ativar();
 	$('.js-tooltip').tooltip();
 	var maskPhoneNumber = new Brewer.MaskPhoneNumber();
 	maskPhoneNumber.ativar();
+	var maskDate = new Brewer.MaskDate();
+	maskDate.ativar();
 });
