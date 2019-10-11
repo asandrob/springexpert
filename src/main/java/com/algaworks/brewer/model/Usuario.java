@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -49,7 +49,7 @@ public class Usuario implements Serializable {
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 
-	@NotNull(message = "Selecione um grupo")
+	@Size(min = 1, message = "Selecione um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo",
 			joinColumns = @JoinColumn(name = "codigo_usuario") /*na tabela usuario_grupo a coluna que se relaciona com @Id de Usuario*/,
@@ -118,6 +118,10 @@ public class Usuario implements Serializable {
 
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+	
+	public boolean isNovo() {
+		return this.codigo == null;
 	}
 
 	@Override
