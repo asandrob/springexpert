@@ -25,9 +25,7 @@
 	</section>
 	
 	<section class="content">
-		<form method="POST" th:object="${cerveja}" class="form-vertical">
-<!-- 			<th:block th:include="~{fragmentos/MensagemSucesso :: mensagemSucesso}"></th:block> -->
-<!-- 			<th:block th:include="~{fragmentos/MensagensErroValidacao :: mensagemErro}"></th:block> -->
+		<form method="POST" th:object="${cerveja}" th:action="@{/cervejas/novo}" class="form-vertical">
 			<brewer:message />
 			<div class="box">
 				<div class="box-body">

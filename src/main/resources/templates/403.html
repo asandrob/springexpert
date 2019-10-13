@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:brewer="http://brewer.algaworks.com"
+	layout:decorate="~{leiaute/LeiautePadrao}">
+<head>
+	<title>Acesso negado</title>
+</head>
+<body>
+<div layout:fragment="conteudo">
+	<section class="content-header">
+		<h1>403 Acesso negado</h1>
+		<ol class="breadcrumb">
+		</ol>
+	</section>
+	<section class="content">
+		<div class="error-page">
+			<h2 class="headline text-orange">403</h2>
+			<div class="error-content">
+				<h3>
+					<i class="fa fa-lock text-orange"></i> Acesso negado.
+				</h3>
+				<p>
+					Desculpe, você não está autorizado a acessar a página que solicitou.<br>
+					<a href="javascript:history.back()" class="btn  btn-primary">Voltar para onde estava</a>
+				</p>
+			</div>
+		</div>
+	</section>
+</div>
+<th:block layout:fragment="~{javascrit-extra}">
+</th:block>		
+</body>
+</html>
