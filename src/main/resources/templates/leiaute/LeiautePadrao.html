@@ -23,7 +23,7 @@
 	<link rel="stylesheet" th:href="@{/layout/css/vendors/skins/skin-blue.min.css}" />
 	
 	<link rel="stylesheet" th:href="@{/css/vendors/bootstrap-datepicker.css}" />
-	
+	<link rel="stylesheet" th:href="@{/css/vendors/icheck/all.css}" />
 	<link rel="stylesheet" th:href="@{/css/brewer.css}" />
 	
 	<link rel="shortcut icon" th:href="@{/img/favicon.png}" />
@@ -38,6 +38,8 @@
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
+	<input type="hidden" name="_csrf" th:value="${_csrf?.token}" />
+	<input type="hidden" name="_csrf_header" th:value="${_csrf?.headerName}" />
 	<div class="wrapper">
 		<header class="main-header">
 			<div th:replace="~{leiaute/fragmentos/Logotipo :: logotipo}"></div>
@@ -59,7 +61,17 @@
 	<script th:src="@{/js/vendors/jquery.mask.min.js}"></script>
 	<script th:src="@{/js/vendors/datepicker/bootstrap-datepicker.js}"></script>
 	<script th:src="@{/js/vendors/datepicker/locales/bootstrap-datepicker.pt-BR.min.js}" charset="UTF-8"></script>
+	<script th:src="@{/js/vendors/icheck.js}"></script>
 	<script th:src="@{/js/brewer.js}"></script>
+	<script type="text/javascript">
+		var url = window.location;
+		$('ul.sidebar-menu a').filter(function() {
+			return url.href.startsWith(this.href);
+		}).parent().addClass('active');
+		$('ul.treeview-menu a').filter(function() {
+			return url.href.startsWith(this.href);
+		}).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+	</script>
 	<th:block layout:fragment="~{javascrit-extra}"></th:block>
 </body>
 </html>

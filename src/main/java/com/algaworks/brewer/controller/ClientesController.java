@@ -60,11 +60,6 @@ public class ClientesController {
 	public ModelAndView pesquisar(ClienteFilter filtro, BindingResult result, 
 			@PageableDefault(size = 5 ) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("cliente/PesquisaClientes");
-		
-		
-//		mv.addObject("sabores", Sabor.values());
-//		mv.addObject("origens", Origem.values());
-//		mv.addObject("estilo", estilos.findAll());
 		PageWrapper<Cliente> pagina = new PageWrapper<>(cadastroClienteService.filtrar(filtro, pageable), httpServletRequest);
 		mv.addObject("pagina", pagina);
 		return mv;

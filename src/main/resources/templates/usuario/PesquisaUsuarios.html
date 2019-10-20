@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{leiaute/LeiautePadrao}"
+	xmlns:brewer="http://brewer.algaworks.com"
+	xmlns:data="http://www.thymeleaf.org/extras/data">
+<head>
+	<title>Pesquisa de usuarios</title>
+	<link rel="stylesheet" th:href="@{/css/vendors/table-fixed-header.css}" />
+</head>
+<body>
+<div layout:fragment="conteudo">
+	<section class="content-header">
+	<h1>
+		<span>Pesquisa de usuários</span>
+	</h1>
+	<div class="breadcrumb">
+		<a th:href="@{/usuarios/novo}" class="btn btn-primary btn-xs" brewer:enableforroles="ROLE_CADASTRAR_USUARIO,ROLE_CADASTRAR_CIDADE">
+			<i class="glyphicon glyphicon-plus"></i>
+			<span>Novo usuário</span>
+		</a>
+ 	</div>
+	</section>
+	<section class="content">
+		<form method="GET" th:object="${usuarioFilter}" class="form-vertical">
+			<div class="box">
+				<div class="box-body">
+					<div class="row">
+						<div class="col-sm-9 form-group">
+							<label class="control-label" for="nome">Nome</label>
+							<input id="nome" type="text" class="form-control" autofocus="autofocus" th:field="*{nome}"/>
+						</div>
+						<div class="col-sm-3 form-group">
+							<label class="control-label" for="email">E-mail</label>
+							<input id="email" type="text" class="form-control" th:field="*{email}"/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 form-group bw-required" brewer:classforerror="grupos">
+							<label>Grupos</label>
+							<div class="checkbox" style="margin-top:5px;margin-left:-19px">
+								<th:block th:each="grupo : ${grupos}">
+									<label>
+										<input type="checkbox" th:value="${grupo.codigo}" th:field="*{grupos}">
+										<span th:text="${grupo.nome}"></span>
+									</label>
+								</th:block>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+					<div class="box-footer">
+					<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Pesquisar</button>
+				</div>
+				
+			</div>
+		</form>
+		<div class="box">
+			<div class="box-body">
+				<div class="btn-group" style="margin-bottom:9px;">
+					<button type="button" class="btn btn-primary dropdown-toggle disabled" id="acoesBtn"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Ações <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="js-status-a" href="#" data:status="ATIVAR" data:url="@{/usuarios/status}" 
+									brewer:enableforroles="ROLE_CADASTRAR_USUARIO">
+								<span class="label label-success">Ativar</span>
+							</a>
+						</li>
+						<li>
+							<a class="js-status-a" href="#" data:status="DESATIVAR" data:url="@{/usuarios/status}"
+									brewer:enableforroles="ROLE_CADASTRAR_USUARIO">
+								<span class="label label-danger">Inativar</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="table-responsive bw-tabela-simples">
+					<table class="table table-hover table-fixed-header">
+						<thead class="header">
+							<tr>
+								<th class="table-usuarios-col-selecionar">
+									<div>
+										<input type="checkbox" class="js-selecao-todos"/>
+									</div>
+								</th>
+								<th class="table-usuarios-col-nome">
+									<brewer:order page="${pagina}" field="nome" text="Nome"/>
+								</th>
+								<th class="table-usuarios-col-email hidden-xs hidden-sm">
+									<brewer:order page="${pagina}" field="email" text="E-mail"/>
+								</th>
+								<th class="table-usuarios-col-grupos">Grupos</th>
+								<th class="table-usuarios-col-status">Status</th>
+								<th class="table-col-acoes"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="usuario : ${pagina.conteudo}">
+								<th>
+									<div  th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+										<input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}"/>
+									</div>
+								</th>
+								<td th:text="${usuario.nome}"></td>
+								<td class="hidden-xs hidden-sm" th:text="${usuario.email}"></td>
+								<td>
+									<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+								</td>
+								<td>
+									<span class="label" th:text="${usuario.ativo ? 'Ativo' : 'Inativo'}"
+											th:classappend="${usuario.ativo ? 'label-success' : 'label-danger'}">
+									</span>
+								</td>
+								<td class="text-center">
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" brewer:enableforroles="ROLE_CADASTRAR_CIDADE"> 
+										<i class="glyphicon glyphicon-pencil"></i>
+									</a>
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Excluir" brewer:enableforroles="ROLE_CADASTRAR_CIDADE">
+										<i class="glyphicon glyphicon-remove"></i>
+									</a>
+								</td>
+							</tr>
+							<tr th:if="${pagina.vazia}">
+								<td colspan="5">Nenhum usuario encontrado</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="box-footer clearfix" th:if="${not pagina.vazia}">
+				<div class="col-sm-12 text-center">
+					<brewer:pagination page=${pagina}/>
+				</div>	
+	        </div>
+		</div>		
+		
+		
+	</section>
+</div>
+<th:block layout:fragment="~{javascrit-extra}">
+	<script th:src="@{/js/multiselecao.js}"></script>
+	<script th:src="@{/js/vendors/table-fixed-header.js}"></script>
+	<script>
+		$('.table-fixed-header').fixedHeader();
+	</script>
+</th:block>		
+		
+</body>
+</html>	

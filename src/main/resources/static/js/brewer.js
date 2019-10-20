@@ -58,7 +58,40 @@ Brewer.MaskDate = (function() {
 
 }());
 
+Brewer.Icheck = (function() {
 
+	function Icheck() {
+		this.checkBox = $(':checkbox');
+	}
+
+	Icheck.prototype.ativar = function() {
+		var options = {
+			checkboxClass: 'icheckbox_flat-blue',
+			radioClass   : 'iradio_flat-blue'
+		};
+		this.checkBox.iCheck(options);
+	}
+
+	return Icheck;
+
+}());
+
+Brewer.Security = (function() {
+	
+	function Security() {
+		this.token = $('input[name=_csrf]').val();
+		this.header = $('input[name=_csrf_header]').val();
+	}
+	
+	Security.prototype.ativar = function() {
+		$(document).ajaxSend(function(event, jqxhr, settings) {
+			jqxhr.setRequestHeader(this.header, this.token);
+		}.bind(this));
+	}
+	
+	return Security;
+	
+}());
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.ativar();
@@ -67,4 +100,8 @@ $(function() {
 	maskPhoneNumber.ativar();
 	var maskDate = new Brewer.MaskDate();
 	maskDate.ativar();
+	var checkBox = new Brewer.Icheck();
+	checkBox.ativar();
+	var security = new Brewer.Security();
+	security.ativar();
 });

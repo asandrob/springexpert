@@ -7,9 +7,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,11 +24,14 @@ public class AppUserDetailsService implements UserDetailsService {
 	@Autowired
 	private Usuarios usuarios;
 	
+	private UsuarioSistema usuarioSistema;
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<Usuario> usuarioOptional = usuarios.porEmailAtivo(username);
 		Usuario usuario = usuarioOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
-		return new User(usuario.getEmail(), usuario.getSenha(), getPermissoes(usuario));
+		UsuarioSistema usuarioSistema = new UsuarioSistema(usuario, getPermissoes(usuario));
+		return usuarioSistema;
 	}
 
 	private Collection<? extends GrantedAuthority> getPermissoes(Usuario usuario) {
@@ -36,6 +39,11 @@ public class AppUserDetailsService implements UserDetailsService {
 		List<String> permissoes = usuarios.permissoes(usuario);
 		permissoes.forEach(permissao -> authorities.add(new SimpleGrantedAuthority(permissao.toUpperCase())));
 		return authorities;
+	}
+	
+	@Bean
+	public UsuarioSistema UsuarioSistema() {
+		return this.usuarioSistema;
 	}
 
 }

@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{leiaute/LeiautePadrao}"
-	xmlns:brewer="http://brewer.algaworks.com">
+	xmlns:brewer="http://brewer.algaworks.com"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 	<title>Pesquisa de cidades</title>
 	<link rel="stylesheet" th:href="@{/css/vendors/table-fixed-header.css}" />
@@ -15,7 +16,8 @@
 		<span>Pesquisa de cidades</span>
 	</h1>
 	<div class="breadcrumb">
-		<a th:href="@{/cidades/novo}" class="btn btn-primary btn-xs">
+		<a th:href="@{/cidades/novo}" class="btn btn-primary btn-xs" 
+				th:classappend="${not #authorization.expression('hasRole(''ROLE_CADASTRAR_CIDADE'')')} ? disabled">
 			<i class="glyphicon glyphicon-plus"></i>
 			<span>Nova cidade</span>
 		</a>
@@ -64,10 +66,12 @@
 								<td th:text="${cidade.nome}"></td>
 								<td class="text-right" th:text="${cidade.estado.nome}"></td>
 								<td class="text-center">
-									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar"> 
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar"
+											th:classappend="${not #authorization.expression('hasRole(''ROLE_CADASTRAR_CIDADE'')')} ? disabled"> 
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
-									<a class="btn  btn-link  btn-xs js-tooltip" title="Excluir">
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Excluir"
+											th:classappend="${not #authorization.expression('hasRole(''ROLE_CADASTRAR_CIDADE'')')} ? disabled">
 										<i class="glyphicon glyphicon-remove"></i>
 									</a>
 								</td>

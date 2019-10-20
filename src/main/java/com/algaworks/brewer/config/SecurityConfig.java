@@ -14,9 +14,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.algaworks.brewer.security.AppUserDetailsService;
+import com.algaworks.brewer.thymeleaf.processor.EnableForRolesAttributeTagProcessor;
 
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = AppUserDetailsService.class)
+@ComponentScan(basePackageClasses = {AppUserDetailsService.class, EnableForRolesAttributeTagProcessor.class})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -50,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.and()
 			.exceptionHandling()
-				.accessDeniedPage("/403");
+				.accessDeniedPage("/403")
+				.and()
+			.sessionManagement()
+				.invalidSessionUrl("/login");
 	}
 	
 	

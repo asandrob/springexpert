@@ -3,6 +3,8 @@ package com.algaworks.brewer.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.repository.Usuarios;
+import com.algaworks.brewer.repository.filter.UsuarioFilter;
 import com.algaworks.brewer.service.exception.EmailUsuarioJaCadastradoException;
 import com.algaworks.brewer.service.exception.SenhaObrigatoriaException;
 
@@ -42,5 +45,13 @@ public class CadastroUsuarioService {
 		usuarios.save(usuario);
 		
 	}
+
+	public Page<Usuario> filtrar(UsuarioFilter filtro, Pageable pageable) {
+		return usuarios.filtrar(filtro, pageable);
+	}
 	
+	@Transactional
+	public void alterarStatus(Long[] codigos, StatusUsuario status) {
+		status.executar(codigos, usuarios);
+	}
 }
