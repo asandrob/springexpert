@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
+import com.algaworks.brewer.dto.CervejaDTO;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.model.Sabor;
@@ -45,6 +46,29 @@ public class CervejasImpl implements CervejasQueries {
 		TypedQuery<Cerveja> query = manager.createQuery(criteriaQuery);
 		paginacaoUtil.preparaPaginacao(pageable, query);
 		return new PageImpl<Cerveja>(query.getResultList(), pageable, total(filtro));		
+	}
+
+	@Override
+	public List<CervejaDTO> porSkuouNome(String skuOuNome) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<CervejaDTO> criteriaQuery = builder.createQuery(CervejaDTO.class);
+		Root<Cerveja> cervejaRoot = criteriaQuery.from(Cerveja.class);
+		Predicate sku = builder.like(builder.lower(cervejaRoot.get("sku")), skuOuNome.toLowerCase() + "%");
+		Predicate nome = builder.like(builder.lower(cervejaRoot.get("nome")), "%" + skuOuNome.toLowerCase() + "%");
+		Predicate predicateSkuOuNome = builder.or(sku, nome);
+		criteriaQuery.select(builder
+				.construct(
+			        CervejaDTO.class,
+			        cervejaRoot.get("codigo"),
+			        cervejaRoot.get("sku"),
+			        cervejaRoot.get("nome"),
+			        cervejaRoot.get("origem"),
+			        cervejaRoot.get("valor"),
+			        cervejaRoot.get("foto"))
+				);
+		criteriaQuery.where(predicateSkuOuNome);        
+		TypedQuery<CervejaDTO> query = manager.createQuery(criteriaQuery);
+		return query.getResultList();
 	}
 
 	private Predicate[] criarCriterios(CervejaFilter filtros, CriteriaBuilder builder, Root<Cerveja> cervejaRoot) {

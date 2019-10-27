@@ -1,5 +1,6 @@
 package com.algaworks.brewer.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.PersistenceException;
@@ -38,4 +39,7 @@ public class CadastroClienteService {
 		return clientes.filtrar(filtro, pageable);
 	}
 	
+	public List<Cliente> filtrar(String nome) {
+		return clientes.findByNomeStartingWithIgnoreCase(nome);
+	}
 }
