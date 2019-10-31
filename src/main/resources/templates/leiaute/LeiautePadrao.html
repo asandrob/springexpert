@@ -23,6 +23,7 @@
 	<link rel="stylesheet" th:href="@{/layout/css/vendors/skins/skin-blue.min.css}" />
 	
 	<link rel="stylesheet" th:href="@{/css/vendors/bootstrap-datepicker.css}" />
+	<link rel="stylesheet" th:href="@{/css/vendors/bootstrap-timepicker.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/vendors/icheck/all.css}" />
 	<link rel="stylesheet" th:href="@{/css/brewer.css}" />
 	
@@ -60,7 +61,8 @@
 	<script th:src="@{/js/vendors/jquery.maskMoney.min.js}"></script>
 	<script th:src="@{/js/vendors/jquery.mask.min.js}"></script>
 	<script th:src="@{/js/vendors/datepicker/bootstrap-datepicker.js}"></script>
-	<script th:src="@{/js/vendors/datepicker/locales/bootstrap-datepicker.pt-BR.min.js}" charset="UTF-8"></script>
+	<script th:src="@{/js/vendors/datepicker/locales/bootstrap-datepicker.pt-BR.min.js}"></script>
+	<script th:src="@{/js/vendors/bootstrap-timepicker.min.js}"></script>
 	<script th:src="@{/js/vendors/icheck.js}"></script>
 	<script th:src="@{/js/vendors/numeral.min.js}"></script>
 	<script th:src="@{/js/vendors/pt-br.min.js}"></script>
@@ -68,11 +70,19 @@
 	<script type="text/javascript">
 		var url = window.location;
 		$('ul.sidebar-menu a').filter(function() {
-			return url.href.startsWith(this.href);
+			return this.href.endsWith(url.pathname);
 		}).parent().addClass('active');
 		$('ul.treeview-menu a').filter(function() {
-			return url.href.startsWith(this.href);
+			return this.href.endsWith(url.pathname);
 		}).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+	    
+		$('.timepicker').timepicker({
+	        showInputs: false,
+	        showMeridian: false,
+	        explicitMode: true,
+	        defaultTime: false
+	      })
+
 	</script>
 	<th:block layout:fragment="~{javascrit-extra}"></th:block>
 </body>
