@@ -99,17 +99,19 @@
 					<table class="table table-hover table-fixed-header">
 						<thead class="header">
 							<tr>
-								<th>
+								<th class=" hidden-xs hidden-sm">
 									<brewer:order page="${pagina}" field="codigo" text="#"/>
 								</th>
 								<th>
 									<brewer:order page="${pagina}" field="cliente.nome" text="Cliente"/>
 								</th>
-								<th><brewer:order page="${pagina}" field="dataCriacao" text="Data de criação"/></th>
+								<th class=" hidden-xs hidden-sm">
+									<brewer:order page="${pagina}" field="dataCriacao" text="Data de criação"/>
+								</th>
 								<th>
 									<brewer:order page="${pagina}" field="valorTotal" text="Valor total"/>
 								</th>
-								<th>
+								<th class=" hidden-xs hidden-sm">
 									<brewer:order page="${pagina}" field="usuario.nome" text="Vendedor"/>
 								</th>
 								<th>Status</th>
@@ -117,12 +119,15 @@
 						</thead>
 						<tbody>
 							<tr th:each="venda : ${pagina.conteudo}">
-								<td th:text="${venda.codigo}"></td>
+								<td class=" hidden-xs hidden-sm" th:text="${venda.codigo}"></td>
 								<td th:text="${venda.cliente.nome}"></td>
-								<td th:text="${{venda.dataCriacao}}"></td>
+								<td class=" hidden-xs hidden-sm" th:text="${{venda.dataCriacao}}"></td>
 								<td th:text="|R$${{venda.valorTotal}}|"></td>
-								<td th:text="${venda.usuario.nome}"></td>
-								<td th:text="${venda.status.descricao}"></td>
+								<td class=" hidden-xs hidden-sm" th:text="${venda.usuario.nome}"></td>
+								<td>
+									<img class="js-tooltip" th:title="${venda.status.descricao}" th:alt="${venda.status.descricao}"
+											th:src="|@{/img/}${venda.status}.png|">
+								</td>
 								<td class="text-center">
 									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar"> 
 										<i class="glyphicon glyphicon-pencil"></i>

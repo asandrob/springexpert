@@ -9,5 +9,6 @@ public interface FotoStorage {
 	public byte[] recuperarFotoTemporaria(String nomeFoto);
 	public void salvar(String nomeFoto);
 	public byte[] recuperarFoto(String nomeFoto);
+	public byte[] recuperarThumbnail(String foto);
 	
 }

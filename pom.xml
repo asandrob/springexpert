@@ -88,6 +88,11 @@
 		
 		<!-- JUnit -->
 		<junit.version>4.12</junit.version>
+		
+		<!-- Java Mail -->
+		<!-- no curso usaram a versão 1.5.6 -->
+		<javax.mail.version>1.6.2</javax.mail.version>
+		
 	</properties>
 
 	<dependencyManagement>
@@ -271,6 +276,14 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Java Mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${javax.mail.version}</version>
+		</dependency>
+		
 		
 	</dependencies>
 
