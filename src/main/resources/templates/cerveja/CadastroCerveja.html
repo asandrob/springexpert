@@ -14,7 +14,8 @@
 <div layout:fragment="conteudo">
 	<section class="content-header">
 	<h1>
-		<span>Cadastro de cerveja</span>
+		<span th:if="${cerveja.nova}">Cadastro de cerveja</span>
+		<span th:unless="${cerveja.nova}" th:text="|Edição da cerveja ${cerveja.nome}|">Edição da cerveja</span>
 	</h1>
 	<div class="breadcrumb">
 		<a th:href="@{/cervejas}" class="btn btn-primary btn-xs">
@@ -25,8 +26,10 @@
 	</section>
 	
 	<section class="content">
-		<form method="POST" th:object="${cerveja}" th:action="@{/cervejas/novo}" class="form-vertical">
+		<form method="POST" th:object="${cerveja}"  class="form-vertical"
+				th:action="${cerveja.nova} ? @{/cervejas/novo} : @{/cervejas/{codigo}(codigo=${cerveja.codigo})}">
 			<brewer:message />
+			<input type="hidden" th:field="*{codigo}"/>
 			<div class="box">
 				<div class="box-body">
 						<div class="row">
@@ -115,6 +118,7 @@
 									<div id="upload-drop" class="bw-upload">
 										<input type="hidden" th:field="*{foto}">
 										<input type="hidden" th:field="*{contentType}">
+										<input type="hidden" th:field="*{novaFoto}">
 										<i class="glyphicon glyphicon-cloud-upload"></i>
 										<span>Arraste a foto aqui ou</span>
 										<a class=bw-upload-form-file>selecione <input id="upload-select"type="file" accept=".jpg,.jpeg,.png"/></a>

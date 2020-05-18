@@ -102,7 +102,7 @@
 						<tbody>
 							<tr th:each="usuario : ${pagina.conteudo}">
 								<th>
-									<div  th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
+									<div th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
 										<input type="checkbox" class="js-selecao" data:codigo="${usuario.codigo}"/>
 									</div>
 								</th>
@@ -117,7 +117,8 @@
 									</span>
 								</td>
 								<td class="text-center">
-									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" brewer:enableforroles="ROLE_CADASTRAR_CIDADE"> 
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" th:href="@{/usuarios/{codigo}(codigo=${usuario.codigo})}"
+											brewer:enableforroles="ROLE_CADASTRAR_CIDADE"> 
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
 									<a class="btn  btn-link  btn-xs js-tooltip" title="Excluir" brewer:enableforroles="ROLE_CADASTRAR_CIDADE">

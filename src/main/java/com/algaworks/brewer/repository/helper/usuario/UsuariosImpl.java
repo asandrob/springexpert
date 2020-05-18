@@ -84,6 +84,17 @@ public class UsuariosImpl implements UsuariosQueries {
 		return new PageImpl<Usuario>(query.getResultList(), pageable, total(filtro));
 	}
 	
+	@Override
+	public Usuario buscarComGrupo(Long codigo) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Usuario> criteriaQuery = builder.createQuery(Usuario.class);
+		Root<Usuario> usuarioRoot = criteriaQuery.from(Usuario.class);
+		usuarioRoot.fetch("grupos");
+		criteriaQuery.where(builder.equal(usuarioRoot.get("codigo"), codigo));
+		TypedQuery<Usuario> query = manager.createQuery(criteriaQuery);
+		return query.getSingleResult();
+	}
+
 	private Predicate[] criarCriterios(UsuarioFilter filtros, CriteriaBuilder builder, Root<Usuario> usuarioRoot, CriteriaQuery<?> criteriaQuery) {
 		List<Predicate> predicatesList = new ArrayList<>();
 		if (!StringUtils.isEmpty(filtros.getNome())) {

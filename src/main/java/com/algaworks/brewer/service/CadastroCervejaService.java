@@ -2,6 +2,8 @@ package com.algaworks.brewer.service;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,8 @@ import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.repository.Cervejas;
 import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.service.event.CervejaSalvaEvent;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
+import com.algaworks.brewer.storage.FotoStorage;
 
 @Service
 public class CadastroCervejaService {
@@ -24,10 +28,25 @@ public class CadastroCervejaService {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	@Autowired
+	private FotoStorage fotoStorage;
+	
 	@Transactional
 	public void salvar(Cerveja cerveja) {
 		cervejas.save(cerveja);
 		publisher.publishEvent(new CervejaSalvaEvent(cerveja));
+	}
+	
+	@Transactional
+	public void excluir(Cerveja cerveja) {
+		try {
+			String foto = cerveja.getFoto();
+			cervejas.delete(cerveja);
+			cervejas.flush();
+			fotoStorage.remover(foto);
+		} catch (PersistenceException e) {
+			throw new ImpossivelExcluirEntidadeException("Impossível excluir esta cerveja, provavelmente já foi utilizada em alguma venda!");
+		}
 	}
 	
 	public Cerveja recuperar(Long codigo) {

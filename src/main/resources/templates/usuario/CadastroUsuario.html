@@ -13,7 +13,8 @@
 <div layout:fragment="conteudo">
 	<section class="content-header">
 	<h1>
-		<span>Cadastro de usuário</span>
+		<span th:if="${usuario.novo}">Cadastro de usuário</span>
+		<span th:unless="${usuario.novo}">Editando o usuário [[${usuario.nome}]]</span>
 	</h1>
 	<div class="breadcrumb">
 		<a th:href="@{/usuarios}" class="btn btn-primary btn-xs">
@@ -24,8 +25,10 @@
 	</section>
 	
 	<section class="content">
-		<form method="POST" th:object="${usuario}" th:action="@{/usuarios/novo}" class="form-vertical">
+		<form method="POST" th:object="${usuario}" class="form-vertical"
+				th:action="${usuario.novo} ? @{/usuarios/novo} : @{/usuarios/{codigo}(codigo=${usuario.codigo})}">
 			<brewer:message />
+			<input type="hidden" th:field="*{codigo}">
 			<div class="box">
 				<div class="box-body">
 						<div class="form-group bw-required" brewer:classforerror="nome">
@@ -59,7 +62,7 @@
 								<label for="confirmacaoSenha">Confirmação de senha</label>
 								<input id="confirmacaoSenha" type="password" class="form-control" th:field="*{confirmacaoSenha}"/>
 							</div>
-							<div class="col-sm-4 form-group">
+							<div class="col-sm-4 form-group" th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
 								<label for="status" class="control-label">Status</label>
 								<div class="checkbox" style="margin-top:5px;margin-left:-19px">
 									<label>

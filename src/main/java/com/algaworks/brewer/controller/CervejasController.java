@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +29,7 @@ import com.algaworks.brewer.model.Sabor;
 import com.algaworks.brewer.repository.Estilos;
 import com.algaworks.brewer.repository.filter.CervejaFilter;
 import com.algaworks.brewer.service.CadastroCervejaService;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 
 @Controller
 @RequestMapping("/cervejas")
@@ -49,8 +53,8 @@ public class CervejasController {
 		return mv;
 	}
 
-	@PostMapping("/novo")
-	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, 
+	@PostMapping(value = { "/novo", "{\\d+}"})
+	public ModelAndView salvar(@Valid Cerveja cerveja, BindingResult result, 
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return novo(cerveja);
@@ -76,6 +80,23 @@ public class CervejasController {
 	@GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<CervejaDTO> filtrar(String skuOuNome) {
 		return cadastroCervejaService.filtrar(skuOuNome);
+	}
+	
+	@DeleteMapping("/{codigo}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Cerveja cerveja) {
+		try {
+			cadastroCervejaService.excluir(cerveja);
+		} catch (ImpossivelExcluirEntidadeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Cerveja cerveja) {
+		ModelAndView mv = novo(cerveja);
+		mv.addObject(cerveja);
+		return mv;
 	}
 	
 }

@@ -129,7 +129,7 @@
 											th:src="|@{/img/}${venda.status}.png|">
 								</td>
 								<td class="text-center">
-									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar"> 
+									<a class="btn  btn-link  btn-xs js-tooltip" title="Editar" th:href="@{/vendas/{codigo}(codigo=${venda.codigo})}" > 
 										<i class="glyphicon glyphicon-pencil"></i>
 									</a>
 									<a class="btn  btn-link  btn-xs js-tooltip" title="Excluir">

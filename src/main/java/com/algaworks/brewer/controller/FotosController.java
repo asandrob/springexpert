@@ -25,7 +25,7 @@ public class FotosController {
 	@Autowired
 	private FotoStorage fotoStorage;
 	
-	@PostMapping
+	@PostMapping(/*consumes = { MediaType.MULTIPART_FORM_DATA_VALUE }*/)
 	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {
 		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 		Thread tarefa = new Thread(new FotoStorageRunnable(files, resultado, fotoStorage)); 

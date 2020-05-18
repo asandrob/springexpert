@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.repository.Grupos;
+import com.algaworks.brewer.repository.Usuarios;
 import com.algaworks.brewer.repository.filter.UsuarioFilter;
 import com.algaworks.brewer.service.CadastroUsuarioService;
 import com.algaworks.brewer.service.StatusUsuario;
@@ -37,6 +39,9 @@ public class UsuariosController {
 	@Autowired
 	private Grupos grupos;
 	
+	@Autowired
+	private Usuarios usuarios;
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
@@ -44,7 +49,7 @@ public class UsuariosController {
 		return mv;
 	}
 	
-	@PostMapping("/novo")
+	@PostMapping({ "/novo", "{\\+d}" })
 	public ModelAndView cadastrar(@Valid Usuario usuario, BindingResult result, 
 			RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
@@ -77,6 +82,14 @@ public class UsuariosController {
 	@ResponseStatus(HttpStatus.OK)
 	public void atualizarStatus(@RequestParam("codigos[]") Long[] codigos, @RequestParam StatusUsuario status) {
 		cadastroUsuarioService.alterarStatus(codigos, status);
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		Usuario usuario = usuarios.buscarComGrupo(codigo);
+		ModelAndView mv = novo(usuario);
+		mv.addObject(usuario);
+		return mv;
 	}
 	
 }

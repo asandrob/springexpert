@@ -47,6 +47,16 @@ public class VendasImpl implements VendasQueries {
 		return new PageImpl<Venda>(query.getResultList(), pageable, total(filtro));		
 	}
 	
+	@Override
+	public Venda buscarComItens(Long codigo) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Venda> criteriaQuery = builder.createQuery(Venda.class);
+		Root<Venda> vendaRoot = criteriaQuery.from(Venda.class);
+		vendaRoot.fetch("itens");
+		criteriaQuery.where(builder.equal(vendaRoot.get("codigo"), codigo));
+		TypedQuery<Venda> query = manager.createQuery(criteriaQuery);
+		return query.getSingleResult();
+	}
 	
 	private Predicate[] criarCriterios(VendaFilter filtros, CriteriaBuilder builder, Root<Venda> vendaRoot) {
 		List<Predicate> predicatesList = new ArrayList<>();

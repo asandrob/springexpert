@@ -210,6 +210,21 @@
 	padding: 0px 5px !important;
 }
 
+/* Sweet Alert*/
+.swal2-title {
+	font-size: 30px !important;
+}
+#swal2-content {
+	font-size: 15px !important;
+}
+
+.swal2-styled.swal2-confirm {
+	font-size: 15px !important;
+}
+.swal2-styled.swal2-cancel {
+	font-size: 15px !important;
+}
+
 /* Tabela Item */
 .bw-tabela-item {
 	position: relative; /* Para que o painel de exclusão apareça dentro da linha */
