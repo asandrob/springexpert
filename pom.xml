@@ -36,7 +36,7 @@
 		
 		<!-- Bean Validation / Hibernate Validator -->
 		<!-- no curso usaram a versão 5.2.4 -->
-		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
 		
 		<!-- Thymeleaf layout dialect -->
 		<!-- no curso usaram a versão 2.0.0 -->
