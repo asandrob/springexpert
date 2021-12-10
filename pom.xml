@@ -44,7 +44,7 @@
 		
 		<!-- Logging -->
 		<!-- no curso usaram a versão 2.6 -->
-		<log4j.version>2.6.2</log4j.version>
+		<log4j.version>2.15.0</log4j.version>
 		<!-- no curso usaram a versão 1.7.21 -->
 		<jcl-over-slf4j.version>1.7.28</jcl-over-slf4j.version>
 		
