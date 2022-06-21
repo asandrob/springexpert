@@ -21,7 +21,7 @@
 		<!-- no curso usaram a versão 4.0.2 -->
 		<flyway-maven-plugin.version>6.0.2</flyway-maven-plugin.version>
 		<!-- no curso usaram a versão 5.1.39 -->
-		<mysql-connector-java.version>5.1.46</mysql-connector-java.version>
+		<mysql-connector-java.version>8.0.28</mysql-connector-java.version>
 
 		<!-- Spring MVC -->
 		<!-- no curso usaram a versão 4.3.0 -->
