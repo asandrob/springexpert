@@ -9,7 +9,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.repository.filter.EstiloFilter;
 import com.algaworks.brewer.service.CadastroEstiloService;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import com.algaworks.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
@@ -65,12 +68,33 @@ public class EstilosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(EstiloFilter filtro, BindingResult result, @PageableDefault(size = 5) Pageable pageable, HttpServletRequest httpServletRequest) {
+	public ModelAndView pesquisar(EstiloFilter filtro, BindingResult result, @PageableDefault(size = 15) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("estilo/PesquisaEstilos");
 		PageWrapper<Estilo> pagina = new PageWrapper<>(cadastroEstiloService.filtrar(filtro, pageable), httpServletRequest);
 		mv.addObject("pagina", pagina);
 		return mv;
 	}
-
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		/*não sei o que aconteceu, mas @EnableSpringDataWebSupport não está trazendo Estilo aqui
+		 *então tive que pesquisar e buscar Estilo 
+		 */
+		Estilo estilo = cadastroEstiloService.recuperar(codigo);
+		ModelAndView mv = novo(estilo);
+		mv.addObject(estilo);
+		return mv;
+	}
+	
+	@DeleteMapping("/{codigo}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Long codigo) {
+		try {
+			Estilo estilo = cadastroEstiloService.recuperar(codigo);
+			cadastroEstiloService.excluir(estilo);
+		} catch (ImpossivelExcluirEntidadeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
 
 }

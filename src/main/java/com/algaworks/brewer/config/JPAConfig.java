@@ -32,7 +32,7 @@ public class JPAConfig {
 	    dataSource.setConnectionTestQuery("SELECT 1 from dual");
 	    dataSource.setPoolName("Pool de conexões MYSQL");
 	    dataSource.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
-	    dataSource.addDataSourceProperty("url", "jdbc:mysql://192.168.56.101:3306/brewer?useSSL=false");
+	    dataSource.addDataSourceProperty("url", "jdbc:mysql://192.168.56.102:3306/brewer?useSSL=false");
 	    dataSource.addDataSourceProperty("user", "root");
 	    dataSource.addDataSourceProperty("password", "Gra.de34");
 	    dataSource.addDataSourceProperty("cachePrepStmts", true);

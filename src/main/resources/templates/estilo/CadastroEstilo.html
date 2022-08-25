@@ -13,18 +13,20 @@
 <div layout:fragment="conteudo">
 	<section class="content-header">
 		<h1>
-			<span>Cadastro de estilo</span>
+			<span th:if="${estilo.novo}">Cadastro de estilo</span>
+			<span th:unless="${estilo.novo}" th:text="|Edição do estilo ${estilo.nome}|">Edição de estilo</span>
 		</h1>
 	<div class="breadcrumb">
 		<a th:href="@{/estilos}" class="btn btn-primary btn-xs">
 			<i class="glyphicon glyphicon-search"></i>
-			<span>Pesquisar cervejas</span>
+			<span>Pesquisar estilos</span>
 		</a>	</div>
 	</section>
 	
 	<section class="content">
 		<form method="post" th:action="@{/estilos/novo}" class="form-vertical" th:object="${estilo}">
 			<brewer:message />
+			<input type="hidden" th:field="*{codigo}"/>
 			<div class="box">
 				<div class="box-body">
 					<div class="form-group" brewer:classforerror="nome">
