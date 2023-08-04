@@ -26,7 +26,7 @@
 		<!-- Spring MVC -->
 		<!-- no curso usaram a versão 4.3.0 -->
 		<!-- https://docs.spring.io/spring/docs/4.3.25.RELEASE/spring-framework-reference/htmlsingle/ -->
-		<spring-framework.version>4.3.25.RELEASE</spring-framework.version>
+		<spring-framework.version>4.3.30.RELEASE</spring-framework.version>
 
 		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
